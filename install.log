@@ -1,0 +1,9 @@
+[23:47:52 2023-06-18] FETCHING Version 2.20.1
+[23:47:52 2023-06-18] DOWNLOADING https://github.com/spicetify/spicetify-cli/releases/download/v2.20.1/spicetify-2.20.1-darwin-arm64.tar.gz
+[23:47:53 2023-06-18] EXTRACTING /Users/dae/.spicetify/spicetify.tar.gz
+[23:47:53 2023-06-18] SETTING EXECUTABLE PERMISSIONS TO /Users/dae/.spicetify/spicetify
+[23:47:53 2023-06-18] REMOVING /Users/dae/.spicetify/spicetify.tar.gz
+[23:47:53 2023-06-18] APPENDING /Users/dae/.spicetify to PATH in /Users/dae/.zshrc
+[23:47:53 2023-06-18] Restart your shell to have spicetify in your PATH.
+[23:47:53 2023-06-18] spicetify v2.20.1 was installed successfully to /Users/dae/.spicetify
+[23:47:53 2023-06-18] Run 'spicetify --help' to get started
