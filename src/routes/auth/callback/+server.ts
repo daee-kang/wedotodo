@@ -7,5 +7,6 @@ export const GET = async ({ url, locals: { supabase } }) => {
 		await supabase.auth.exchangeCodeForSession(code);
 	}
 
+	//TODO: redirect not working
 	throw redirect(303, '/');
 };
