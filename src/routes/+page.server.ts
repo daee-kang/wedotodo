@@ -6,7 +6,7 @@ export const load = async ({ locals }) => {
 	const session = await locals.getSession();
 
 	if (session?.user.email) {
-		// user exists - redirect to /home
-		throw redirect(308, '/home');
+		// user exists - redirect to /todos
+		throw redirect(308, '/todos');
 	}
 };

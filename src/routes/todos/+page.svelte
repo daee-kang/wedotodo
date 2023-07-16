@@ -1,7 +1,5 @@
 <script lang="ts">
-  export let data;
-
-  const { session } = data;
+  
 </script>
 
 <form method="POST" action="?/signout">
@@ -14,3 +12,8 @@
   hello now you are home
 </h1>
 
+<form method="GET" action="todos/create">
+  <button>
+    create todo
+  </button>
+</form>
