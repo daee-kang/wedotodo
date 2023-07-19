@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export const actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
@@ -49,8 +49,7 @@ export const actions = {
 			});
 		}
 
-		return {
-			id: teamMutation.data[0].id
-		};
+		// TODO: redirect to todo page with id
+		throw redirect(303, '/todos');
 	}
 };
