@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import type { Actions } from '../$types';
 
 export const actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
@@ -52,4 +53,4 @@ export const actions = {
 		// TODO: redirect to todo page with id
 		throw redirect(303, '/todos');
 	}
-};
+} satisfies Actions;

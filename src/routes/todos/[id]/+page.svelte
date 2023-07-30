@@ -1,14 +1,19 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import AddTodoModal from './components/AddTodoModal.svelte';
 
 	export let data: PageData;
+
+	let showAddTodoModal = false;
 </script>
+
+<AddTodoModal bind:showModal={showAddTodoModal} teamId={data.todoGroup.id} />
 
 <div class="header">
 	<h1>
 		hello this is {data.todoGroup?.name}
 	</h1>
-	<button> + </button>
+	<button on:click={() => (showAddTodoModal = true)}> + </button>
 </div>
 
 {#each data.todos as todo}
