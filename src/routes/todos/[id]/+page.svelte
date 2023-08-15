@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import AddTodoModal from './components/AddTodoModal.svelte';
+	import TodoItem from './components/TodoItem.svelte';
 
 	export let data: PageData;
 
@@ -16,15 +17,23 @@
 	<button on:click={() => (showAddTodoModal = true)}> + </button>
 </div>
 
-{#each data.todos as todo}
-	<div class="todo">
-		<div class="todo-title">
-			<input type="checkbox" checked={todo.completed} />
-			<h3>{todo.title}</h3>
-		</div>
-		<p>{todo.description}</p>
-	</div>
-{/each}
+<div class="todo-list-container">
+	<ul class="todo-list">
+		{#each data.todos as todo}
+			<TodoItem>
+				<span slot="title">{todo.title}</span>
+				<span slot="created-at"
+					>{new Date(todo.created_at).toLocaleDateString('en-US', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric'
+					})}</span
+				>
+				<p slot="description">{todo.description}</p>
+			</TodoItem>
+		{/each}
+	</ul>
+</div>
 
 <style>
 	.header {
@@ -32,15 +41,17 @@
 		justify-content: space-between;
 	}
 
-	.todo {
-		border: 1px solid black;
-		margin: 10px;
-		padding: 10px;
+	.todo-list-container {
+		width: 100%;
+		display: flex;
+		justify-content: center;
 	}
 
-	.todo-title {
+	.todo-list {
+		width: 40%;
+		min-width: 400px;
 		display: flex;
-		flex-direction: row;
-		gap: 10px;
+		flex-direction: column;
+		gap: 8px;
 	}
 </style>
