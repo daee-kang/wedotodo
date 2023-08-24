@@ -1,45 +1,45 @@
 <script lang="ts">
-  export let data
-  let { supabase } = data
-  $: ({ supabase } = data)
+	export let data;
+	let { supabase } = data;
+	$: ({ supabase } = data);
 
-  let email: string;
-  let password: string;
+	let email: string;
+	let password: string;
 
-  const handleSignUp = async () => {
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
-    })
-  }
+	const handleSignUp = async () => {
+		await supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: `${location.origin}/auth/callback`
+			}
+		});
+	};
 
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-  }
+	const handleSignIn = async () => {
+		await supabase.auth.signInWithPassword({
+			email,
+			password
+		});
+	};
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-  }
+	const handleSignOut = async () => {
+		await supabase.auth.signOut();
+	};
 
-  const onInitiateGoogleAuth = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    })
-  }
+	const onInitiateGoogleAuth = async () => {
+		await supabase.auth.signInWithOAuth({
+			provider: 'google'
+		});
+	};
 </script>
 
-<form on:submit="{handleSignUp}">
-  <input name="email" bind:value="{email}" />
-  <input type="password" name="password" bind:value="{password}" />
-  <button>Sign up</button>
+<form on:submit={handleSignUp}>
+	<input name="email" bind:value={email} />
+	<input type="password" name="password" bind:value={password} />
+	<button>Sign up</button>
 </form>
 
 <button on:click={onInitiateGoogleAuth}>google</button>
-<button on:click="{handleSignIn}">Sign in</button>
-<button on:click="{handleSignOut}">Sign out</button>
+<button on:click={handleSignIn}>Sign in</button>
+<button on:click={handleSignOut}>Sign out</button>
