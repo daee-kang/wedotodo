@@ -26,6 +26,12 @@
   const handleSignOut = async () => {
     await supabase.auth.signOut()
   }
+
+  const onInitiateGoogleAuth = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    })
+  }
 </script>
 
 <form on:submit="{handleSignUp}">
@@ -34,5 +40,6 @@
   <button>Sign up</button>
 </form>
 
+<button on:click={onInitiateGoogleAuth}>google</button>
 <button on:click="{handleSignIn}">Sign in</button>
 <button on:click="{handleSignOut}">Sign out</button>
