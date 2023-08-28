@@ -2,6 +2,8 @@
 	import { enhance } from '$app/forms';
 	import GoogleLogo from '$lib/assets/google.png';
 	export let data;
+	export let form;
+
 	let { supabase } = data;
 	$: ({ supabase } = data);
 
@@ -21,15 +23,19 @@
 	<div class="card">
 		<h1>Sign in</h1>
 
+		{#if form?.success === false}
+			<small class="error">{form?.message}</small>
+		{/if}
+
 		<form
 			method="post"
 			class="login-form"
+			action="?/login"
 			use:enhance={() => {
 				loading = true;
 
 				return async ({ update, result }) => {
 					await update();
-					console.log(result);
 					loading = false;
 				};
 			}}
@@ -47,12 +53,12 @@
 			</div>
 
 			<div class="button-container">
-				<button disabled={loading}>Sign up</button>
 				<button disabled={loading}>Log in</button>
+				<button disabled={loading} formaction="?/signup">Sign up</button>
 			</div>
 		</form>
 
-		or
+		<small>or</small>
 
 		<button on:click={onInitiateGoogleAuth} class="auth-login-button" disabled={loading}>
 			<img alt="google-logo" src={GoogleLogo} class="social-auth-logo" />
@@ -73,10 +79,15 @@
 		height: 100vh;
 	}
 
+	.error {
+		color: white;
+	}
+
 	.card {
 		padding: 2rem;
 		width: 200px;
 		background-color: #ff4000;
+		box-shadow: #f1a1a0 0px 22px 70px 4px;
 	}
 
 	.login-form {
@@ -85,9 +96,19 @@
 		gap: 1rem;
 	}
 
+	.login-form + small {
+		display: flex;
+		justify-content: center;
+		margin: 1rem;
+	}
+
 	.button-container {
 		display: flex;
 		justify-content: space-evenly;
+	}
+
+	.button-container > button {
+		width: 100%;
 	}
 
 	.auth-login-button {
