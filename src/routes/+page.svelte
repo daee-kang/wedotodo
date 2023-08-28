@@ -10,10 +10,5 @@
 {#if session}
 	<h1>hello {session.user.email}</h1>
 {:else}
-	<h1>not logged in</h1>
-
-	// need to update login route
-	<form method="GET" action="/auth">
-		<button> login </button>
-	</form>
+	<a href="/login">login</a>
 {/if}
