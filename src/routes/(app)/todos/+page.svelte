@@ -5,10 +5,6 @@
 	const { groups } = data;
 </script>
 
-<form method="POST" action="?/signout">
-	<button> logout </button>
-</form>
-
 <h1>hello now you are home</h1>
 
 <h2>owned todos</h2>

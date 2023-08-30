@@ -40,10 +40,3 @@ export const load = async ({ locals: { supabase, getSession } }: PageServerLoadE
 		}
 	};
 };
-
-export const actions = {
-	signout: async ({ locals: { supabase } }) => {
-		await supabase.auth.signOut();
-		throw redirect(303, '/');
-	}
-};

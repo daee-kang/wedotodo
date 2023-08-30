@@ -10,5 +10,5 @@
 {#if session}
 	<h1>hello {session.user.email}</h1>
 {:else}
-	<a href="/login">login</a>
+	<h1>not signed in</h1>
 {/if}
