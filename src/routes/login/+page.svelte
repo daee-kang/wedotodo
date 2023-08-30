@@ -14,7 +14,10 @@
 
 	const onInitiateGoogleAuth = async () => {
 		await supabase.auth.signInWithOAuth({
-			provider: 'google'
+			provider: 'google',
+			options: {
+				redirectTo: `${location.origin}/auth/callback`
+			}
 		});
 	};
 </script>
