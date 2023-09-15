@@ -11,6 +11,9 @@
 	<header>
 		<h2>we do to do</h2>
 		{#if session}
+			{#if session.user}
+				<small class="debug">Logged in as {session.user.email}</small>
+			{/if}
 			<form method="POST" action="../?/signout">
 				<button>Log out</button>
 			</form>
@@ -44,6 +47,8 @@
 
 	header {
 		display: flex;
+		align-items: center;
+		gap: 1rem;
 		position: relative;
 		padding: 1rem;
 	}

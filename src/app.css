@@ -33,3 +33,13 @@ button:active {
 	background-color: #ff4000;
 	color: white;
 }
+
+.debug {
+	background-color: black;
+	color: greenyellow;
+	text-decoration: underline;
+}
+
+.debug::before {
+	content: 'DEBUG: ';
+}
