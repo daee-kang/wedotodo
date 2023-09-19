@@ -9,7 +9,7 @@
 
 <main>
 	<header>
-		<h2>we do to do</h2>
+		<a href="/" class="header-link"> we do to do </a>
 		{#if session}
 			{#if session.user}
 				<small class="debug">Logged in as {session.user.email}</small>
@@ -43,6 +43,7 @@
 	.body {
 		flex: 1;
 		overflow: auto;
+		padding: 1rem;
 	}
 
 	header {
@@ -53,9 +54,9 @@
 		padding: 1rem;
 	}
 
-	header > h2 {
+	.header-link {
+		text-decoration: none;
 		margin: 0;
-		padding-left: 4rem;
 		flex: 1;
 		color: #ff4000;
 	}
