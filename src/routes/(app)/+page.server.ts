@@ -15,7 +15,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	signout: async ({ locals: { supabase } }) => {
 		// signout
-		console.log('ayo');
 		await supabase.auth.signOut();
 		throw redirect(303, '/');
 	}
