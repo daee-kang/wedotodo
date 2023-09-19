@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+
+	export let id: string;
+	export let onOptimisticDelete: (todoId: string) => void | undefined;
+	export let onOptimisticDeleteComplete: (todoId: string) => void | undefined;
+	export let onOptimisticDeleteError: (todoId: string) => void | undefined;
 </script>
 
 <li class="todo-item">
@@ -12,6 +18,25 @@
 	</div>
 
 	<slot name="description" />
+
+	<form
+		method="POST"
+		use:enhance={() => {
+			onOptimisticDelete(id);
+
+			return async ({ update, result }) => {
+				await update();
+				if (result.type === 'failure') {
+					onOptimisticDeleteError(id);
+					return;
+				} else {
+					onOptimisticDeleteComplete(id);
+				}
+			};
+		}}
+	>
+		<button formaction="?/deleteTodo&id={id}">delete</button>
+	</form>
 </li>
 
 <style>

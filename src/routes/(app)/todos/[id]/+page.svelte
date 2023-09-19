@@ -6,6 +6,18 @@
 	export let data: PageData;
 
 	let showAddTodoModal = false;
+
+	let deleting: string[] = [];
+	const onOptimisticDelete = (todoId: string) => {
+		deleting = [...deleting, todoId];
+	};
+	const onOptimisticDeleteComplete = (todoId: string) => {
+		deleting = deleting.filter((id) => id !== todoId);
+	};
+	const onOptimisticDeleteError = (todoId: string) => {
+		alert('error deleting todo');
+		deleting = deleting.filter((id) => id !== todoId);
+	};
 </script>
 
 <AddTodoModal bind:showModal={showAddTodoModal} teamId={data.todoGroup.id} />
@@ -19,8 +31,13 @@
 
 <div class="todo-list-container">
 	<ul class="todo-list">
-		{#each data.todos as todo}
-			<TodoItem>
+		{#each data.todos.filter((todo) => !deleting.includes(todo.id)) as todo}
+			<TodoItem
+				id={todo.id}
+				{onOptimisticDelete}
+				{onOptimisticDeleteComplete}
+				{onOptimisticDeleteError}
+			>
 				<span slot="title">{todo.title}</span>
 				<span slot="created-at"
 					>{new Date(todo.created_at).toLocaleDateString('en-US', {

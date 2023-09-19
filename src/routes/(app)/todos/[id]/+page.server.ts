@@ -63,5 +63,30 @@ export const actions = {
 		}
 
 		throw redirect(303, `/todos/${teamId}`);
+	},
+	deleteTodo: async ({ locals: { supabase, getSession }, url }) => {
+		const session = await getSession();
+
+		// TODO: genericize
+		if (!session) {
+			return fail(401, {
+				message: 'Unauthorized'
+			});
+		}
+
+		const todoId = url.searchParams.get('id') as string;
+		if (!todoId) {
+			return fail(400, {
+				message: 'Missing todoId to delete'
+			});
+		}
+
+		const { error } = await supabase.from('todo').delete().eq('id', todoId);
+
+		if (error) {
+			return fail(500, {
+				message: error.message
+			});
+		}
 	}
 } satisfies Actions;
