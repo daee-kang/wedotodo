@@ -1,5 +1,5 @@
 import { supabase } from '$lib/supabaseClient';
-import { error, fail, redirect } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoadEvent } from './$types';
 
 export const load = async ({ params }: PageServerLoadEvent) => {
@@ -61,8 +61,6 @@ export const actions = {
 				message: error.message
 			});
 		}
-
-		throw redirect(303, `/todos/${teamId}`);
 	},
 	deleteTodo: async ({ locals: { supabase, getSession }, url }) => {
 		const session = await getSession();
