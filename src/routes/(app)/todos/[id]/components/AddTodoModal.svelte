@@ -22,7 +22,7 @@
 			return async ({ update, result }) => {
 				await update();
 
-				if (result.type !== 'failure') {
+				if (result.type === 'failure') {
 					alert('error creating todo');
 					isCreating = false;
 					return;
