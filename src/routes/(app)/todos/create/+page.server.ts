@@ -50,7 +50,6 @@ export const actions = {
 			});
 		}
 
-		// TODO: redirect to todo page with id
-		throw redirect(303, '/todos');
+		throw redirect(303, `/todos/${teamMutation.data[0].id}`);
 	}
 } satisfies Actions;
