@@ -1,5 +1,23 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { Actions } from '../$types';
+import type { Actions, PageServerLoadEvent } from '../$types';
+
+export const load = async ({ locals: { supabase, getSession } }: PageServerLoadEvent) => {
+	const session = await getSession();
+
+	if (!session) {
+		throw redirect(303, '/login');
+	}
+
+	let hasUsername = false;
+
+	if (session.user.user_metadata.username) {
+		hasUsername = true;
+	}
+
+	return {
+		hasUsername
+	};
+};
 
 export const actions: Actions = {
 	default: async ({ params, request, locals: { supabase, getSession } }) => {

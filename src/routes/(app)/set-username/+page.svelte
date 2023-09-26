@@ -1,6 +1,10 @@
 <script lang="ts">
 	import debounce from 'debounce';
 	import { supabase } from '$lib/supabaseClient';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+	const { hasUsername } = data;
 
 	const DEBOUNCE_TIME = 500;
 
@@ -35,7 +39,12 @@
 </script>
 
 <div class="page">
-	<h4>Create a username to get started, you'll need one to share todos with your friends</h4>
+	{#if hasUsername}
+		<h4>Set a new username</h4>
+	{:else}
+		<h4>Create a username to get started, you'll need one to share todos with your friends</h4>
+	{/if}
+
 	<form
 		class="username-form"
 		method="POST"
