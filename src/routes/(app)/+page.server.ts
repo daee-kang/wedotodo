@@ -6,9 +6,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 	// we load this already in layout.server
 	const session = await locals.getSession();
 
-	if (session?.user.email) {
-		// user exists - redirect to /todos
-		throw redirect(308, '/todos');
+	// verify user has username
+	if (session) {
+		if (session.user.email) {
+			// user exists - redirect to /todos
+			throw redirect(308, '/todos');
+		}
 	}
 };
 
