@@ -7,6 +7,12 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.25.0
     version: 2.25.0
+  '@types/debounce':
+    specifier: ^1.2.2
+    version: 1.2.2
+  debounce:
+    specifier: ^1.2.1
+    version: 1.2.1
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -491,6 +497,10 @@ packages:
   /@types/cookie@0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
 
+  /@types/debounce@1.2.2:
+    resolution: {integrity: sha512-ow0L7we5RXNQocEO9LNBRJCk/ecBc8M0aTg0DLrlg1nsnKAcjvFmYFUbsxujlrbngRslmKIA4mKoOxIJdUElhw==}
+    dev: false
+
   /@types/json-schema@7.0.12:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
@@ -835,6 +845,10 @@ packages:
     dependencies:
       es5-ext: 0.10.62
       type: 1.2.0
+    dev: false
+
+  /debounce@1.2.1:
+    resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
     dev: false
 
   /debug@2.6.9:
