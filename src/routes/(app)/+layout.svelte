@@ -12,7 +12,9 @@
 		<a href="/" class="header-link"> we do to do </a>
 		{#if session}
 			{#if session.user}
-				<small class="debug">Logged in as {session.user.email}</small>
+				<small class="debug"
+					>Logged in as @{session.user.user_metadata.username ?? session.user.email}</small
+				>
 			{/if}
 			<form method="POST" action="../?/signout">
 				<button>Log out</button>

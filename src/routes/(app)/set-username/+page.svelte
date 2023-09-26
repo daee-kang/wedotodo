@@ -1,51 +1,96 @@
 <script lang="ts">
 	import debounce from 'debounce';
-	import type { PageData } from './$types';
 	import { supabase } from '$lib/supabaseClient';
+
+	const DEBOUNCE_TIME = 500;
 
 	let usernameInput = '';
 	let isValid: boolean | undefined = undefined;
+	let isSearching: boolean = false;
 
-	$: if (usernameInput.length === 0) {
+	const onInputChange = (username: string) => {
 		isValid = undefined;
-	}
-
-	const onInputChange = debounce(async (username: string) => {
-		console.log('uhh');
+		getUsernameValidity(username);
+	};
+	const getUsernameValidity = debounce(async (username: string) => {
 		if (username.length === 0) return;
 
+		isSearching = true;
 		// check if the username is unique from supabase
 		const users = await supabase
 			.from('profile')
 			.select('username', { count: 'exact' })
 			.eq('username', username);
-		console.log(users);
+
 		if (users.count == null || users.count === 0) {
 			isValid = true;
 		} else {
 			isValid = false;
 		}
-	}, 700);
+
+		isSearching = false;
+	}, DEBOUNCE_TIME);
 
 	$: onInputChange(usernameInput);
 </script>
 
-<div class="input-container">
-	<h1>@</h1>
-	<input type="text" placeholder="Username" id="username-input" bind:value={usernameInput} />
-	{#if isValid === true}
-		<p class="text-green-500">Username is available</p>
-	{:else if isValid === false}
-		<p class="text-red-500">Username is taken</p>
-	{/if}
+<div class="page">
+	<h4>Create a username to get started, you'll need one to share todos with your friends</h4>
+	<form
+		class="username-form"
+		method="POST"
+		on:keydown={(e) => {
+			if (isValid) return true;
+
+			e.key === 'Enter' && e.preventDefault();
+		}}
+	>
+		<div class="input-container">
+			<h1>@</h1>
+			<input
+				type="text"
+				placeholder="Username"
+				name="username"
+				id="username-input"
+				bind:value={usernameInput}
+			/>
+		</div>
+
+		{#if isSearching === true}
+			<p>searching...</p>
+		{/if}
+
+		{#if isValid === true}
+			<p class="green">Username is available</p>
+			<button type="submit">continue</button>
+		{:else if isValid === false}
+			<p class="red">Username is taken</p>
+		{/if}
+	</form>
 </div>
 
 <style>
+	.page {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.username-form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 	.input-container {
 		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: 0.5rem;
+	}
+	.green {
+		color: green;
+	}
+	.red {
+		color: red;
 	}
 </style>
