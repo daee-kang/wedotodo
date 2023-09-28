@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoadEvent } from '../$types';
 
-export const load = async ({ locals: { supabase, getSession } }: PageServerLoadEvent) => {
+export const load = async ({ locals: { getSession } }: PageServerLoadEvent) => {
 	const session = await getSession();
 
 	if (!session) {
@@ -20,7 +20,7 @@ export const load = async ({ locals: { supabase, getSession } }: PageServerLoadE
 };
 
 export const actions: Actions = {
-	default: async ({ params, request, locals: { supabase, getSession } }) => {
+	default: async ({ request, locals: { supabase, getSession } }) => {
 		const formdata = await request.formData();
 		const username = formdata.get('username') as string;
 

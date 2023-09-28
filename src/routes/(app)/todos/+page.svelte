@@ -21,7 +21,9 @@
 
 {#each groups.member as group}
 	<li>
-		{group.name}
+		<a href="./todos/{group.id}">
+			{group.name}
+		</a>
 	</li>
 {/each}
 

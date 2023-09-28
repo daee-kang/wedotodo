@@ -1,11 +1,22 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import AddTodoModal from './components/AddTodoModal.svelte';
+	import ShareModal from './components/ShareModal.svelte';
 	import TodoItem from './components/TodoItem.svelte';
 
 	export let data: PageData;
 
 	let showAddTodoModal = false;
+	let showShareModal = false;
+
+	// ensure only one modal is open at a time
+	$: {
+		if (showAddTodoModal) {
+			showShareModal = false;
+		} else if (showShareModal) {
+			showAddTodoModal = false;
+		}
+	}
 
 	let deleting: string[] = [];
 	const onOptimisticDelete = (todoId: string) => {
@@ -21,12 +32,17 @@
 </script>
 
 <AddTodoModal bind:showModal={showAddTodoModal} teamId={data.todoGroup.id} />
+<ShareModal bind:showModal={showShareModal} teamId={data.todoGroup.id} />
 
 <div class="header">
 	<h1>
 		hello this is {data.todoGroup?.name}
 	</h1>
-	<button on:click={() => (showAddTodoModal = true)}> + </button>
+
+	<div>
+		<button on:click={() => (showAddTodoModal = true)}>add</button>
+		<button on:click={() => (showShareModal = true)}>share</button>
+	</div>
 </div>
 
 <div class="todo-list-container">

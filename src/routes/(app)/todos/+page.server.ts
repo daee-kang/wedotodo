@@ -16,6 +16,7 @@ export const load = async ({ locals: { supabase, getSession } }: PageServerLoadE
 		.from('team_member')
 		.select()
 		.eq('member_id', session.user.id);
+
 	if (todoMemberQuery.error) {
 		throw error(500, `Error fetching todo groups members ${todoMemberQuery.error.message}`);
 	}
