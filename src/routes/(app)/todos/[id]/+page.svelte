@@ -36,13 +36,33 @@
 
 <div class="header">
 	<h1>
-		hello this is {data.todoGroup?.name}
+		{data.todoGroup.name}
 	</h1>
 
 	<div>
 		<button on:click={() => (showAddTodoModal = true)}>add</button>
 		<button on:click={() => (showShareModal = true)}>share</button>
 	</div>
+</div>
+
+<div class="todo-details">
+	<small>
+		{data.todoGroup.description}
+	</small>
+
+	<small>
+		{data.todoGroup.created_at
+			? new Date(data.todoGroup.created_at).toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+			  })
+			: ''}
+	</small>
+
+	<small>
+		created by @{data.todoGroup.captain}
+	</small>
 </div>
 
 <div class="todo-list-container">
@@ -70,6 +90,11 @@
 
 <style>
 	.header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.todo-details {
 		display: flex;
 		justify-content: space-between;
 	}

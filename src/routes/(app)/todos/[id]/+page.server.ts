@@ -29,9 +29,19 @@ export const load = async ({ params, locals: { getSession } }: PageServerLoadEve
 	// fetch todos
 	const todos = await supabase.from('todo').select().eq('team_id', id);
 
+	// convert todo group captain uuid to username
+	const captain = await supabase
+		.from('profile')
+		.select('username')
+		.eq('id', todoGroup.data[0].captain);
+
 	return {
-		todoGroup: todoGroup.data[0],
-		todos: todos.data ?? []
+		todoGroup: {
+			...todoGroup.data[0],
+			captain: captain.data?.[0].username ?? 'Unknown'
+		},
+		todos: todos.data ?? [],
+		members: members.data ?? []
 	};
 };
 
